@@ -1,0 +1,32 @@
+filePath = 'C:\\Temp\\'
+readFileName = 'test.txt'
+writeFileName = readFileName.replace('.txt', '_modified.txt')
+
+#Could import a format file; demonstrating values here; don't necessarily have to be continuous
+fileSpec = [['POLNO',1,10,'STRING']]
+fileSpec.append(['PLANCODE',19,3,'STRING'])
+
+readFile = open(filePath+readFileName,"r")
+writeFile = open(filePath+writeFileName,"w")
+for ln in readFile:
+    tpStr = ""
+    for i in range(0,len(fileSpec)):
+        field = ln[fileSpec[i][1]:(fileSpec[i][1]+fileSpec[i][2])]
+        field = field.strip()
+        if fileSpec[i][3] == "STRING":
+            field = '"' + field + '"'
+        elif fileSpec[i][3] == "DATE":
+            field = field[:4] + '-' + field[4:6] + '-' + field[6:8]
+        elif fileSpec[i][3] == 'MONEY':
+            if field == '.': 
+                field = '0.00'
+            if '.' not in field:
+                field = field + '.00'
+            else:
+                field = (field + '0000')[:(field.find('.')+3)]
+        if tpStr != '':
+            field = ',' + field
+        tpStr = tpStr + field
+    writeFile.write(tpStr + '\n')
+readFile.close()
+writeFile.close()
