@@ -5,7 +5,7 @@ readFileName = 'test.txt'
 writeFileName = readFileName.replace('.txt', '_modified.txt')
 
 #Fixed width file bins indicate cut lengths; negative values indicate a value that we want to discard where positive we'd like to keep
-widthBin = (-1,10,-8,3,-2,5,-1,12,-1,8,-3,8,-1,1,-1,8,-1,1,-1,1,-1,2,1,-1,2,1,-1,3,-1,4,-1,1,-1,1,-1,8,-1,1,-1,2,-1,5,-1,6,-1,4,-1,10,10,10,10,10,10,1,-1,3)
+widthBin = (-1,10,-8,3)
 fmtstring = ' '.join('{}{}'.format(abs(w), 'x' if w < 0 else 's')
                         for w in widthBin)
 fieldStruct = struct.Struct(fmtstring)
