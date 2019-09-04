@@ -14,9 +14,9 @@ parse = fieldStruct.unpack_from
 readFile = open(filePath+readFileName,"r")
 writeFile = open(filePath+writeFileName,"w")
 for ln in readFile:
-    fields = parse(ln)
-    print(fields)
-    #writeFile.write('\n'.join(',' % x for x in fields))
+    fields = parse(ln.encode('ascii'))
+    writeFile.write(','.join(x.decode('utf-8' for x in fields))
+    writeFile.write('\n')
 
 readFile.close()
 writeFile.close()
